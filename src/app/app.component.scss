@@ -1,0 +1,21 @@
+.users-container {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+mat-table {
+  max-width: 100%;
+  width: 100%;
+  overflow-x: auto;
+}
+
+mat-cell {
+  padding: 8px 16px;
+  text-align: left;
+}
+
+mat-cell table td.heading {
+  font-weight: 500;
+  color: grey;
+}

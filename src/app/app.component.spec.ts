@@ -1,31 +1,57 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { UsersService } from '../services/users.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { of } from 'rxjs';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let usersService: UsersService;
+  let getUsersSpy: jasmine.Spy;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      imports: [
+        HttpClientTestingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+      ], // Import HttpClientTestingModule
+      providers: [UsersService],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    });
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    usersService = TestBed.inject(UsersService);
+
+    getUsersSpy = spyOn(usersService, 'getUsers').and.callThrough();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  afterEach(() => {
+    getUsersSpy.calls.reset(); // Reset the spy after each test
   });
 
-  it(`should have as title 'users-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('users-app');
+  it('should create the AppComponent', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('users-app app is running!');
+  it('should populate users property with data returned from UsersService', () => {
+    const mockUsers = [
+      { id: 1, name: 'User 1' },
+      { id: 2, name: 'User 2' },
+    ];
+    getUsersSpy.and.returnValue(of(mockUsers));
+    component.ngOnInit();
+    expect(component.users).toEqual(mockUsers);
+  });
+
+  it('should call getUsers() method on UsersService when component initializes', () => {
+    component.ngOnInit();
+    expect(getUsersSpy).toHaveBeenCalled();
   });
 });
