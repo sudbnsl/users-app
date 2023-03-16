@@ -1,21 +1,30 @@
 .users-container {
-  display: flex;
-  justify-content: center;
   padding: 24px;
-}
-
-mat-table {
   max-width: 100%;
   width: 100%;
-  overflow-x: auto;
 }
 
-mat-cell {
-  padding: 8px 16px;
-  text-align: left;
+mat-expansion-panel {
+  margin-bottom: 16px;
 }
 
-mat-cell table td.heading {
+mat-card {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.user-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.user-info-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.user-info-section h4 {
+  margin-bottom: 8px;
   font-weight: 500;
   color: grey;
 }

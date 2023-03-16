@@ -1,58 +1,34 @@
-<mat-toolbar color="primary"> User Information </mat-toolbar>
+<mat-toolbar color="primary">User Information</mat-toolbar>
 <div class="users-container">
-  <mat-table [dataSource]="users">
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.name }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="address">
-      <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-      <mat-cell *matCellDef="let user">
-        <table>
-          <tr>
-            <td class="heading">Street:</td>
-            <td>{{ user.address.street }}</td>
-          </tr>
-          <tr>
-            <td class="heading">Suite:</td>
-            <td>{{ user.address.suite }}</td>
-          </tr>
-          <tr>
-            <td class="heading">City:</td>
-            <td>{{ user.address.city }}</td>
-          </tr>
-          <tr>
-            <td class="heading">Zipcode:</td>
-            <td>{{ user.address.zipcode }}</td>
-          </tr>
-        </table>
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="phone">
-      <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.phone }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="company">
-      <mat-header-cell *matHeaderCellDef>Company</mat-header-cell>
-      <mat-cell *matCellDef="let user">
-        <table>
-          <tr>
-            <td class="heading">Name:</td>
-            <td>{{ user.company.name }}</td>
-          </tr>
-          <tr>
-            <td class="heading">CatchPhrase:</td>
-            <td>{{ user.company.catchPhrase }}</td>
-          </tr>
-          <tr>
-            <td class="heading">BS:</td>
-            <td>{{ user.company.bs }}</td>
-          </tr>
-        </table>
-      </mat-cell>
-    </ng-container>
+  <mat-expansion-panel *ngFor="let user of users">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ user.name }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-  </mat-table>
+    <mat-card>
+      <mat-card-content>
+        <div class="user-info">
+          <div class="user-info-section">
+            <h4>Address</h4>
+            <p>Street: {{ user.address.street }}</p>
+            <p>Suite: {{ user.address.suite }}</p>
+            <p>City: {{ user.address.city }}</p>
+            <p>Zip Code: {{ user.address.zipcode }}</p>
+          </div>
+          <div class="user-info-section">
+            <h4>Phone</h4>
+            <p>{{ user.phone }}</p>
+          </div>
+          <div class="user-info-section">
+            <h4>Company</h4>
+            <p>Name: {{ user.company.name }}</p>
+            <p>CatchPhrase: {{ user.company.catchPhrase }}</p>
+            <p>BS: {{ user.company.bs }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-expansion-panel>
 </div>

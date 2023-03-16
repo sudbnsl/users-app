@@ -20,7 +20,7 @@ describe('AppComponent', () => {
         HttpClientTestingModule,
         BrowserAnimationsModule,
         MatToolbarModule,
-      ], // Import HttpClientTestingModule
+      ],
       providers: [UsersService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
@@ -33,7 +33,7 @@ describe('AppComponent', () => {
   });
 
   afterEach(() => {
-    getUsersSpy.calls.reset(); // Reset the spy after each test
+    getUsersSpy.calls.reset();
   });
 
   it('should create the AppComponent', () => {
